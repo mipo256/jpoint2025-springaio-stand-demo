@@ -2,7 +2,8 @@
 
 ## Glossary:
 
-1. SDJ - Spring Data JDBC
+1. **SDJ** - Spring Data JDBC
+2. **CRI** - Custom Repository Implementations (Sometimes referred to as Repressory Fragments)
 
 ## 1. Criteria API Usage in Spring JDBC.
 
@@ -22,3 +23,50 @@ similar in SDJ? <br/>
 A: No, not yet. It is not inherently hard to implement it, it is just that it requires
 a lot of engineering time and nobody really did it before. But if you need it, again,
 reach out to Mikhail, he will look into it.
+
+## 2. SPEL in Spring Data Queries
+
+FAG: 
+
+Q: Do all modules support SPEL in String-based queries? <br/>
+A: **Most of, maybe not all, but the majority - yes**. 
+
+Q: Can I have a custom `BeanResolver` in SPEL queries? <br/>
+A: **Not directly, no**. BUT! You can get a very similar effect with `EvaluationContextExtension`.
+The Spring Aio expert will provide you with necessary information.
+
+Q: How Spring Data internally handles the SPEL in queries? <br/>
+A: Well, there two different scenarios here. Let me explain. Most of the time, users actually
+want the SPEL to evaluate into a value of the column in the `WHERE` clause, like this:
+
+```
+WHERE name = :#{root.property}
+```
+
+in this case, **we replace all the spel/value references in the query with named parameters**, and the 
+evaluated values are added into the underlying `SqlParameterFactory`. So, after parsing, the query looks 
+like this:
+
+```
+WHERE name = :__$$synthetic$$__1
+```
+
+So, **the synthetic named parameter is generated**. 
+
+Another case is that many modules allow for SPEL to be used in other places for schema/table name substitution.
+That allows for polymorphic HQL to be expressed easier, for instance. So, this approach looks like that:
+
+```(HQL)
+SELECT t FROM #{entityName} t WHERE t.name = ?
+```
+
+In this case, the entity name to be substituted is actually replaced in-place. **So, beware of SQL injections!**
+
+Q: As far as I know, SPEL actually starts with `#{`, and not `:#{`, am I right ? <br/>
+A: Yes, you're correct. And Spring Data is not an exception 8-) We retain the `:` at the beginning 
+while parsing the rest, so the expression like this `WHERE name = :#{name}` becomes a named parameter reference,
+like that `WHERE name = :name`. The colon at the beginning is not a part of the SPEL, actually 8-)
+
+Q: Any performance penalty for that ? <br/>
+A: We do not have stable JMH tests to prove the degradation of perf in here, but, just beware, that spel evaluation logic
+would obviously work on each executed query, so, apply with caution.

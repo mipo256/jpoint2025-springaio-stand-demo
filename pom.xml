@@ -56,4 +56,17 @@
       <artifactId>lombok</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <parameters>false</parameters>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
