@@ -1,9 +1,9 @@
-package com.mpolivaha.jpoint2025.springaio.repository_fragments;
+package com.mpolivaha.jpoint2025.springaio.spel_and_repository_fragments;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.mpolivaha.jpoint2025.springaio.repository_fragments.UserProperties.Customer;
+import com.mpolivaha.jpoint2025.springaio.spel_and_repository_fragments.UserProperties.Customer;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

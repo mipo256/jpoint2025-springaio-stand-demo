@@ -26,7 +26,7 @@ class PostServiceTest extends AbstractDatabaseTest {
 	private PostService postService;
 
 	@Configuration
-	static class PostServiceTestConfig extends AbstractRelationalTestConfiguration {
+	static class PostServiceTestConfig extends RelationalTestConfiguration {
 
 		@Bean
 		public PostService postService(JdbcAggregateTemplate jdbcAggregateTemplate) {

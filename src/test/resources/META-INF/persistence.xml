@@ -1,0 +1,6 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+  <persistence-unit name="jpql_and_bulk_delete">
+    <class>com.mpolivaha.jpoint2025.springaio.jpql_challanges.ParentClass</class>
+    <class>com.mpolivaha.jpoint2025.springaio.jpql_challanges.ChildClass</class>
+  </persistence-unit>
+</persistence>

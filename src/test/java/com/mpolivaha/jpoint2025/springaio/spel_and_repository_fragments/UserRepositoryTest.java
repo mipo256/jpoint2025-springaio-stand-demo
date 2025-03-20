@@ -1,6 +1,6 @@
-package com.mpolivaha.jpoint2025.springaio.repository_fragments;
+package com.mpolivaha.jpoint2025.springaio.spel_and_repository_fragments;
 
-import static com.mpolivaha.jpoint2025.springaio.repository_fragments.UserRepositoryTest.UserRepositoryTestConfiguration;
+import static com.mpolivaha.jpoint2025.springaio.spel_and_repository_fragments.UserRepositoryTest.UserRepositoryTestConfiguration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -32,7 +32,7 @@ class UserRepositoryTest extends AbstractDatabaseTest {
 	@EnableJdbcRepositories
 	@EnableConfigurationProperties
 	@ConfigurationProperties
-	static class UserRepositoryTestConfiguration extends AbstractRelationalTestConfiguration {
+	static class UserRepositoryTestConfiguration extends RelationalTestConfiguration {
 
 		@Bean
 		@ConfigurationProperties(prefix = "deployment.user")
