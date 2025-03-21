@@ -70,3 +70,20 @@ like that `WHERE name = :name`. The colon at the beginning is not a part of the 
 Q: Any performance penalty for that ? <br/>
 A: We do not have stable JMH tests to prove the degradation of perf in here, but, just beware, that spel evaluation logic
 would obviously work on each executed query, so, apply with caution.
+
+## 3. JPQL Challanges
+
+Q. Am I correct that ALL JPQL queries bypass the first level cache? <br/>
+A: **Well, yes.**. And it is not only the JPQL queries that bypass the 1-st level cache, bu criteria queries as well.
+In fact, the only queries that will hit the cache first (if you have **NOT** tweaked the `CacheMode` yourself) are only
+`entityManager.find(Class domainClass, T id)` queries. The `UPDATE`/`DELETE` queries would also bypass it.
+
+Q: Do all types of cascades does not work when you do JPQL? <br/>
+A: **Yes, all defined in JPA**. Read me _**very**_ carefully right now - Cascades in general are designed to cascade the 
+corresponding transitions of entities. With JPQL, you're not interacting with the persistence context, your queries are 
+directly converted into SQL and sent to database. There is no "entities" involved, no transitions happen. Therefore, 
+there is nothing to cascade.
+
+Q: So, why Spring Data JPA / Hibernate issues the separate SELECT for each cascade removed entity? <br/>
+A: The same answer! **Entity transitions**! Cascade removal means that entities needs to be moved to a removed state in the 
+persistence context. In order to be placed in "removed" state in persistence context they need to be loaded into memory! 
