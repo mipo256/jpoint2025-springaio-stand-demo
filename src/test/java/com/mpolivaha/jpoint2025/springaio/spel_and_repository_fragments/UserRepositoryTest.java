@@ -31,7 +31,6 @@ class UserRepositoryTest extends AbstractDatabaseTest {
 
 	@EnableJdbcRepositories
 	@EnableConfigurationProperties
-	@ConfigurationProperties
 	static class UserRepositoryTestConfiguration extends RelationalTestConfiguration {
 
 		@Bean

@@ -33,7 +33,7 @@ public class AbstractDatabaseTest {
 			.withPassword("test");
 
 	@Import(AbstractDatabaseConfiguration.class)
-	protected static class RelationalTestConfiguration extends AbstractJdbcConfiguration {
+	public static class RelationalTestConfiguration extends AbstractJdbcConfiguration {
 
 		@Bean("transactionManager")
 		PlatformTransactionManager platformTransactionManager(DataSource dataSource) {
