@@ -87,3 +87,45 @@ there is nothing to cascade.
 Q: So, why Spring Data JPA / Hibernate issues the separate SELECT for each cascade removed entity? <br/>
 A: The same answer! **Entity transitions**! Cascade removal means that entities needs to be moved to a removed state in the 
 persistence context. In order to be placed in "removed" state in persistence context they need to be loaded into memory! 
+
+## 4. Inline Classes in Spring Data Repositories
+
+Q. Aren't inline classes similar to typeliases in Kotlin? <br/>
+A: **Well, not quite.**. Assume you have declared the typealias such as follows:
+
+```
+typealias MyString = String
+```
+
+and then you also have the following repo method:
+
+```
+interface MyRepo : CrudRepository<Entity, Long> {
+   
+   fun findByMyString(source: MyString);
+}
+```
+
+The problem is that `MyString` is considered to be an alias for `String`, and therefore you can pass an instance of `String` 
+into the `findMyMyString()` method, and it would compile! That is not what we actually want. We want to solve the problem of
+type-safety. In other words, we do not want the program to compile if we have passed the `String` in here, not `MyString`. But
+we also do not want to impose an additional overhead of creating wrapper classes. That is why inline classes come into play here.
+They provide type-safety on the compile time, while the classes will be inlined in the actual JVM bytecode into the field they hold
+
+Q: Do all Spring Data modules support them? <br/>
+A: **Yes**. It is important to understand, that we do not do really anything in particular to support them. The kotlin compiler will
+do the most work for us. Just make sure that the generated JVM methods will not clash in terms of signature.
+
+
+## 5. Spring Data Sequences Support
+
+Q. When this will be available? <br/>
+A: **We target 3.5.0 minor release**
+
+Q: Can you do optimizations, similar to JPA's `allocationSize`? <br/>
+A: **Well, not yet**. Most likely we would consider it, as a matter of fact, we have already discussed it internally. But this is 
+kind of low priority now. If you want this optimization in place, then please, file an issue or if any already exists - like it!
+
+Q: Is it available for all DBs? <br/>
+A: **Almost, for all except MySQL**. The problem with MySQL is that this RDMBS does not support sequences in general. But other 
+databases do, including the MariaDB. So for every other the answer is yes.
