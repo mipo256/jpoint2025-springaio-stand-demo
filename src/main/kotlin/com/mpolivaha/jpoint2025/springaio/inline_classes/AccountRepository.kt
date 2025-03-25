@@ -8,5 +8,11 @@ interface AccountRepository : CrudRepository<Account, Long> {
 
     fun findByExternalId(externalId: ExternalId) : Optional<Account>
 
+    fun findByInternalId(internalId: InternalId) : Optional<Account>
+
+//    fun findByExternalId(externalId: Long) : Optional<Account>
+//
+//    fun findByInternalId(internalId: Long) : Optional<Account>
+
     override fun findById(id: Long): Optional<Account>
 }

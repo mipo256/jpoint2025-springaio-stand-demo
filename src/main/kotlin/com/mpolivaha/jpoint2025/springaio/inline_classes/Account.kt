@@ -1,11 +1,17 @@
 package com.mpolivaha.jpoint2025.springaio.inline_classes
 
+import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
 @Table
 data class Account(
-    val id: InternalId,
+
+    @Id
+    val id: Long,
+//    val externalId: Long,
+//    val internalId: Long,
     val externalId: ExternalId,
+    val internalId: InternalId,
     val name: String
 ) {
 
