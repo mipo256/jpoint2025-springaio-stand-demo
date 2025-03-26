@@ -1,4 +1,4 @@
-package com.mpolivaha.jpoint2025.springaio.spel_and_repository_fragments;
+package com.mpolivaha.jpoint2025.springaio.spel;
 
 public record UserProperties(
 		Customer customer

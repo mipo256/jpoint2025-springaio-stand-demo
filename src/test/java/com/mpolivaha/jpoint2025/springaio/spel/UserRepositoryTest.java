@@ -1,6 +1,6 @@
-package com.mpolivaha.jpoint2025.springaio.spel_and_repository_fragments;
+package com.mpolivaha.jpoint2025.springaio.spel;
 
-import static com.mpolivaha.jpoint2025.springaio.spel_and_repository_fragments.UserRepositoryTest.UserRepositoryTestConfiguration;
+import static com.mpolivaha.jpoint2025.springaio.spel.UserRepositoryTest.UserRepositoryTestConfiguration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -55,11 +55,6 @@ class UserRepositoryTest extends AbstractDatabaseTest {
 					} catch (NoSuchMethodException e) {
 						throw new RuntimeException(e);
 					}
-				}
-
-				@Override
-				public Map<String, Object> getProperties() {
-					return EvaluationContextExtension.super.getProperties();
 				}
 
 				@Override

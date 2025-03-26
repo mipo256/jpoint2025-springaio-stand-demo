@@ -116,11 +116,10 @@ Q: Do all Spring Data modules support them? <br/>
 A: **Yes**. It is important to understand, that we do not do really anything in particular to support them. The kotlin compiler will
 do the most work for us. Just make sure that the generated JVM methods will not clash in terms of signature.
 
-
 ## 5. Spring Data Sequences Support
 
 Q. When this will be available? <br/>
-A: **We target 3.5.0 minor release**
+A: **We target 3.5.0 minor release**.
 
 Q: Can you do optimizations, similar to JPA's `allocationSize`? <br/>
 A: **Well, not yet**. Most likely we would consider it, as a matter of fact, we have already discussed it internally. But this is 

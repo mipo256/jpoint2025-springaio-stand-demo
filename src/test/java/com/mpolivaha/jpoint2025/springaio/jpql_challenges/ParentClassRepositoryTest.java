@@ -1,4 +1,4 @@
-package com.mpolivaha.jpoint2025.springaio.jpql_challanges;
+package com.mpolivaha.jpoint2025.springaio.jpql_challenges;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -102,8 +102,11 @@ class ParentClassRepositoryTest extends AbstractDatabaseTest {
 		assertThat(managed).isPresent();
 
 		// deleting managed entity via id
+		// TODO: use plain JPQL
 		parentClassRepository.deleteAllByIdInBatch(List.of(managed.get().getId()));
+		parentClassRepository.flush();
 
+		// TODO: findById --> entity is present
 		assertThat(managed.get().getInvocationCounter()).isEqualTo(0L);
 	}
 
@@ -166,12 +169,14 @@ class ParentClassRepositoryTest extends AbstractDatabaseTest {
 			);
 						
 			INSERT INTO parent_class(id, name) VALUES(1, 'some name');
-			INSERT INTO child_class(id, name, parent_class_id) VALUES(1, 'child', 1);
+			INSERT INTO child_class(id, name, parent_class_id) VALUES(1, 'child1', 1);
+			INSERT INTO child_class(id, name, parent_class_id) VALUES(2, 'child2', 1);
 			""")
 	@Transactional
 	void deleteByIds() {
 		// Notice the SELECTs first!
 		parentClassRepository.deleteById(1L);
+		parentClassRepository.flush();
 	}
 
 	/**
@@ -195,7 +200,7 @@ class ParentClassRepositoryTest extends AbstractDatabaseTest {
 			""")
 	@Transactional
 	void deleteByIdsInBatch() {
-		// No SELECT! Just plain HQL!
+		// No ParentClass SELECT! Just plain HQL! But no cascading and Pre-Remove callbacks
 		parentClassRepository.deleteAllByIdInBatch(Set.of(1L));
 	}
 }

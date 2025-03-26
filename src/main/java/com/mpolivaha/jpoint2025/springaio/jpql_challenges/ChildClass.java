@@ -1,4 +1,4 @@
-package com.mpolivaha.jpoint2025.springaio.jpql_challanges;
+package com.mpolivaha.jpoint2025.springaio.jpql_challenges;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
