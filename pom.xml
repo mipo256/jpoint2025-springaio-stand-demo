@@ -4,6 +4,7 @@
 
   <modules>
     <module>mpolivaha</module>
+    <module>isazonov</module>
   </modules>
 
   <parent>
