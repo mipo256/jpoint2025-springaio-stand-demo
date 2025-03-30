@@ -68,10 +68,11 @@ class UserRepositoryTest extends AbstractDatabaseTest {
 	@Test
 	//language=sql
 	@Sql(statements = """
-				CREATE TABLE users(id BIGSERIAL PRIMARY KEY, name TEXT, customer TEXT);
+				CREATE TABLE IF NOT EXISTS users(id BIGSERIAL PRIMARY KEY, name TEXT, customer TEXT);
+				DELETE FROM users;
 				INSERT INTO users(id, name, customer) VALUES(1, 'userName', 'HAULMOUNT');
 			""")
-	void testPredefinedMethodById() {
+	void 	testPredefinedMethodById() {
 		Optional<User> user = userRepository.findById(1L);
 
 		assertThat(user).isPresent().hasValueSatisfying(it -> {
@@ -83,7 +84,8 @@ class UserRepositoryTest extends AbstractDatabaseTest {
 	@Test
 	//language=sql
 	@Sql(statements = """
-				CREATE TABLE users(id BIGSERIAL PRIMARY KEY, name TEXT, customer TEXT);
+				CREATE TABLE IF NOT EXISTS users(id BIGSERIAL PRIMARY KEY, name TEXT, customer TEXT);
+				DELETE FROM users;
 				INSERT INTO users(id, name, customer) VALUES(1, 'userName', 'HAULMOUNT');
 			""")
 	void testViaSpelExtension() {
