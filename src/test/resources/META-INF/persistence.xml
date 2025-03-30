@@ -2,5 +2,7 @@
   <persistence-unit name="jpql_and_bulk_delete">
     <class>com.mpolivaha.jpoint2025.springaio.jpql_challenges.ParentClass</class>
     <class>com.mpolivaha.jpoint2025.springaio.jpql_challenges.ChildClass</class>
+    <class>com.mpolivaha.jpoint2025.springaio.spel.entity_name.Author</class>
+    <class>com.mpolivaha.jpoint2025.springaio.spel.entity_name.Order</class>
   </persistence-unit>
 </persistence>
