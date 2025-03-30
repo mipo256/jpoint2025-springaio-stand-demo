@@ -141,3 +141,11 @@ A: **It is possible, but you would not like the consequences**. Because in this 
 it would be impossible to determine if we need to issue an `INSERT`, or we want to issue an `UPDATE` it. We cannot know it since
 for both `INSERT` and `UPDATE` we need a pre-set id.  In order to gain the knowledge of what query to issue, we need to do 
 what Hibernate does - issue a separate `SELECT`. Do you want extra `SELECT`s into your database? No, so shut your mouth.
+
+## 7. Allocation Size in JPA
+
+Q. Why still multiple selects to sequence? <br/>
+A: Well, this is mostly because Hibernate wants to check if the sequence in database is indeed configured correctly. In other words,
+it wants to double-check that it indeed has allocated N ids for operations. So, Hibernate would have to check it anyway, either by 
+querying the `information_schema` or smth like that, or by issuing another `SELECT nextval`/`SELECT NEXT VALUE FOR`. The second approach is
+of course better, since it further reduces the number of queries to be done
