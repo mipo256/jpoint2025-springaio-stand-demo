@@ -2,7 +2,6 @@
 
 ## Spring Data JDBC Criteria API usage
 
-* Add REST API endpoint 
 * Add query with `OR IS NULL`/`COALESCE` + link to Ilya's and Fedor talk
 * QR code to README.md
 
@@ -28,3 +27,7 @@ the Hibernate will load the relation via a separate SQL `SELECT` statement.
 
 * Table name example
 * Entity name example
+
+## Kotlin inline classes
+
+* Emphasize that the spring data requires no configuration for this to run - this is just a trick on the edge of kotlin and spring data. 

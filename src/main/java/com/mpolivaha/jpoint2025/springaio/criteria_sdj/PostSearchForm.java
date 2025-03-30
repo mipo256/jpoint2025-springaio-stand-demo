@@ -6,39 +6,37 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 
-import lombok.Builder;
 import lombok.Data;
 
-@Data
-@Builder
-public class PostSearchForm {
+//TODO: records are not documented this way, adhere to javadoc for records
+public record PostSearchForm(
 
 	/**
 	 * The id of the author of the post
 	 */
-	private Long authorId;
+	Long authorId,
 
 	/**
 	 * Title pattern
 	 */
-	private String titleLike;
+	String titleLike,
 
 	/**
 	 * Created At Less Than Or Equals
 	 */
-	private Instant createdAtLte;
+	Instant createdAtLte,
 
 	/**
 	 * Created At Greater Than Or Equals
 	 */
-	private Instant createdAtGte;
 
+	Instant createdAtGte,
 	/**
 	 * Likes Count Greater Than Or Equals
 	 */
-	private Integer likesGte;
-
-	private Pagination pagination;
+	Integer likesGte,
+	Pagination pagination
+) {
 
 	public Pageable toPageable() {
 		if (pagination == null) {
@@ -53,23 +51,17 @@ public class PostSearchForm {
 		);
 	}
 
-	@Data
-	public static class Pagination {
+	/**
+	 * <i>Typically</i>, page number is zero based
+	 */
+	public record Pagination(
+			int pageNumber,
+			int pageSize,
+			Sort sort
+	) { }
 
-		/**
-		 * <i>Typically</i>, page number is zero based
-		 */
-		private int pageNumber;
-
-		private int pageSize;
-
-		private Sort sort;
-	}
-
-	@Data
-	public static class Sort {
-
-		private String property;
-		private String direction;
-	}
+	public record Sort(
+			String property,
+			String direction
+	) { }
 }

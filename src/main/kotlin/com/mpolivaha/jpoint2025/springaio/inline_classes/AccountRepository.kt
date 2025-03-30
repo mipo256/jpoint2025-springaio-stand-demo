@@ -1,8 +1,9 @@
 package com.mpolivaha.jpoint2025.springaio.inline_classes
 
-import com.mpolivaha.jpoint2025.springaio.inline_classes.Account.*
+import com.mpolivaha.jpoint2025.springaio.inline_classes.Account.ExternalId
+import com.mpolivaha.jpoint2025.springaio.inline_classes.Account.InternalId
 import org.springframework.data.repository.CrudRepository
-import java.util.Optional
+import java.util.*
 
 interface AccountRepository : CrudRepository<Account, Long> {
 

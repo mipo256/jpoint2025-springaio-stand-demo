@@ -22,11 +22,11 @@ public class PostService {
 	public Page<Post> findDynamic(PostSearchForm query) {
 		Criteria criteria = null;
 
-		criteria = eq(criteria, "authorId", query.getAuthorId());
-		criteria = gte(criteria, "likes", query.getLikesGte());
-		criteria = gte(criteria, "createdAt", query.getCreatedAtGte());
-		criteria = lte(criteria, "createdAt", query.getCreatedAtLte());
-		criteria = like(criteria, "title", query.getTitleLike());
+		criteria = eq(criteria, "authorId", query.authorId());
+		criteria = gte(criteria, "likes", query.likesGte());
+		criteria = gte(criteria, "createdAt", query.createdAtGte());
+		criteria = lte(criteria, "createdAt", query.createdAtLte());
+		criteria = like(criteria, "title", query.titleLike());
 
 		return jdbcAggregateTemplate.findAll(
 				Query.query(criteria),

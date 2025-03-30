@@ -56,12 +56,14 @@ class PostServiceTest extends AbstractDatabaseTest {
 	void testFindDynamic() {
 
 		 //given.
-		PostSearchForm searchForm = PostSearchForm
-				.builder()
-				.authorId(1L)
-				.createdAtGte(Instant.now().minusSeconds(Duration.ofDays(1).toSeconds()))
-				.titleLike("Data")
-				.build();
+		PostSearchForm searchForm = new PostSearchForm(
+				1L,
+				"Data",
+				null,
+				Instant.now().minusSeconds(Duration.ofDays(1).toSeconds()),
+				null,
+				null
+		);
 
 		// when.
 		Page<Post> content = postService.findDynamic(searchForm);
