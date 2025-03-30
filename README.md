@@ -128,3 +128,16 @@ kind of low priority now. If you want this optimization in place, then please, f
 Q: Is it available for all DBs? <br/>
 A: **Almost, for all except MySQL**. The problem with MySQL is that this RDMBS does not support sequences in general. But other 
 databases do, including the MariaDB. So for every other the answer is yes.
+
+## 6. Client Generated Ids Spring Data JDBC
+
+Q. Is it required to implement Persistable? <br/>
+A: **No, not really**. There are other ways of doing an UPDATE with client generated ID, for instance you can write a custom
+`BeforeConvertCallback`. It is also possible, but I prefer the approach via persistable becuase it is portable - `Persistable`
+is supported by all spring data modules, `BeforeConvertCallback` is a strict Spring Data JDBC feature.
+
+Q. Why not just making some annotation like `@ClientSideGenerated` and be done with it? <br/>
+A: **It is possible, but you would not like the consequences**. Because in this case, when you call `save()` on `CrudRepository`
+it would be impossible to determine if we need to issue an `INSERT`, or we want to issue an `UPDATE` it. We cannot know it since
+for both `INSERT` and `UPDATE` we need a pre-set id.  In order to gain the knowledge of what query to issue, we need to do 
+what Hibernate does - issue a separate `SELECT`. Do you want extra `SELECT`s into your database? No, so shut your mouth.
