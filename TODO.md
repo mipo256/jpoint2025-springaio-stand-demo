@@ -26,7 +26,6 @@ the Hibernate will load the relation via a separate SQL `SELECT` statement.
 ## SPEL
 
 * Table name example
-* Entity name example
 
 ## Kotlin inline classes
 

@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mpolivaha.jpoint2025.springaio.AbstractDatabaseTest;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = SimpleEntityRepositoryTest.SimpleEntityRepositoryTestConfig.class)
-public class SimpleEntityRepositoryTest extends AbstractDatabaseTest {
+@ContextConfiguration(classes = ClientSideGenEntityRepositoryTest.SimpleEntityRepositoryTestConfig.class)
+public class ClientSideGenEntityRepositoryTest extends AbstractDatabaseTest {
 
 	@Autowired
 	protected SimpleEntityRepository simpleEntityRepository;
