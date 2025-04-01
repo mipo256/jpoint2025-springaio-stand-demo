@@ -2,12 +2,12 @@ package com.evilcorp.hcf;
 
 import com.evilcorp.hcf.entities.Product;
 import com.evilcorp.hcf.repositories.interval.ProductIntervalRepository;
-import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,13 +18,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Import(PostgresTestcontainersConfiguration.class)
 @SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Transactional
 class HibernateCustomIntervalTests {
 
     @Autowired
     private ProductIntervalRepository productRepository;
 
-    @PostConstruct
+    @BeforeEach
     void init() {
         final Product piledriver = productRepository.save(Product.builder()
                 .name("Piledriver")
@@ -42,7 +42,7 @@ class HibernateCustomIntervalTests {
     }
 
     @Test
-    void findProductById() {
+    void findYearLongSalesNative() {
         final Product expected = Product.builder()
                 .name("screwdriver")
                 .price(16)
@@ -62,7 +62,7 @@ class HibernateCustomIntervalTests {
     }
 
     @Test
-    void findProductByIntervalId() {
+    void findYearLongSalesInlineSql() {
         final Product expected = Product.builder()
                 .name("screwdriver")
                 .price(16)
@@ -81,7 +81,7 @@ class HibernateCustomIntervalTests {
     }
 
     @Test
-    void findProductByIntervalIdInlineSql() {
+    void findYearLongSalesSimplePattern() {
         final Product expected = Product.builder()
                 .name("screwdriver")
                 .price(16)
@@ -101,7 +101,7 @@ class HibernateCustomIntervalTests {
     }
 
     @Test
-    void findProductByIntervalIdInlineSqlCun() {
+    void findYearLongSalesPatternInPattern() {
         final Product expected = Product.builder()
                 .name("screwdriver")
                 .price(16)
@@ -121,7 +121,7 @@ class HibernateCustomIntervalTests {
     }
 
     @Test
-    void findProductByIntervalIdInlineSqlCunPeriod() {
+    void findYearLongSalesPatternParameter() {
         final Product expected = Product.builder()
                 .name("screwdriver")
                 .price(16)
@@ -142,7 +142,7 @@ class HibernateCustomIntervalTests {
     }
 
     @Test
-    void findProductByIntervalIdInlineSqlCunPeriodFc() {
+    void findYearLongSalesFunctionParameter() {
         final Product expected = Product.builder()
                 .name("screwdriver")
                 .price(16)
@@ -163,7 +163,7 @@ class HibernateCustomIntervalTests {
     }
 
     @Test
-    void findProductByIntervalIdInlineSqlCunPeriodFcLit() {
+    void findYearLongSalesFunctionLiteral() {
         final Product expected = Product.builder()
                 .name("screwdriver")
                 .price(16)
